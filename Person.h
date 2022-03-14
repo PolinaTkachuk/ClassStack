@@ -13,37 +13,37 @@ private:
 
 public:
     Person(){last_name="";first_name="";patronymic="";}
-    Person(const Person&);
+    Person(const Person& P){last_name=P.last_name; first_name=P.first_name; patronymic=P.patronymic;}
+
+    string* fragment(string bap) //вспомагательная функция для Person(string fullname)
+    //разбивает строку на 3 слова
+    {
+        static string ans[3];
+        int count = 0;
+        int j = 0;
+        for (; count < 3; count++)
+        {
+            while (bap[j] != ' ' || j < bap.length())
+            {
+                ans[count].append(1, bap[j]);j++;
+            }
+        j++;
+        }
+        return ans;
+    }
+
     // подаем строку из 3х слов и инициализируем членданные ими: фамилия,имя,отчество
     Person(string fullname)
     {
-        int i=0;
-        while(i!=strlen(fullname))
-        {
-            int j=0;
-           if(fullname[i+1]!=' ')
-           {
-               last_name=fullname[i];
-               i++;
 
-           }
-        for(i=0;fullname[i]!=' ';i++)
-         {
+     // разбиваем полученную строку на не пустые слова
+     string *str=fragment(fullname);
+     //инизиализируем
+     last_name=str[0];
+     first_name=str[1];
+     patronymic=str[2];
 
-          }
-        last_name=buf[0];
-        }
 
-        /*string* str;
-        int n=strlen(fullname);
-        str = new string[];
-         // разбиваем полученную строку на не пустые слова
-        str= fullname.split(' ');
-            while (ptr){                //while (ptr != NULL)
-                cout << ptr << '\n';
-                ptr = strtok(0,SEPARATORS);   //Подбираем слово
-            }
-            */
     }
 
     const string& getLastName() const { return last_name; }

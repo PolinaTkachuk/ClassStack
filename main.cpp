@@ -1,10 +1,14 @@
-#include"ClassStack.h"
+#include"PersonKeeper.h"
 #include <iostream>
 using namespace std;
 
 
 int main()
 {
+    PersonKeeper& keeper = PersonKeeper::Instance();
+    string s = "D:\\lab\\ClassStack\\file.txt";
+    keeper.ReadPersons(s);
+
     Stack <int> S1;
     Stack <int> S2(5);
 

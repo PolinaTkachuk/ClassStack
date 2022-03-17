@@ -14,13 +14,13 @@ private:
     class Node
     {
     public:
-        int key=0;
+        T key=nullptr;
 
         Node* next = nullptr;//указатель на след эл
         Node* head = nullptr; //текущий эл-т, голова
 
         Node() { head = 0; }
-        Node(int _key, Node* _next)
+        Node(T _key, Node* _next)
         {
             key = _key;
             next = _next;
@@ -32,14 +32,16 @@ private:
 public:
     Stack() { head = 0; } //конструктор
     Stack(int n);
+    Stack(const Stack <T>&);// конструктор копирования
     ~Stack(); // деструктор
 
     void Push(const T&); // Помещение объекта в стек
-    void Pop(); //  Извлечение объекта из стека
+    const T Pop(); //  Извлечение объекта из стека
     int Size(); // размер стека
     bool Empty();// проверка на пустоту
     void print();// вывод стека для main.cpp
     void Clear(); // извлечение из стека всех узлов, для деструктора
+
 };
 // конструктор
 template <class T> Stack<T>::Stack(int n) {
@@ -53,6 +55,20 @@ Stack<T>::~Stack()
 {
     Clear();
 }
+template <class T> Stack<T>::Stack(const Stack<T>& S)
+{
+    for (int i = S.size; i > 0; i--) {
+        head = nullptr;
+        Node* temp = S.head;
+        for (int j = 0; j < i; j++) {
+            temp = temp->next;
+        }
+        Node* newNode = new Node{ temp->key, head };
+        head = newNode;
+    }
+    size = S.size;
+}
+
 
 template <class T>
 void Stack<T>::Clear()
@@ -73,18 +89,20 @@ template <class T> void Stack<T>::Push(const T& k)
 
 }
 
-template <class T> void Stack<T>::Pop()
+template <class T> const T Stack<T>::Pop()
 {
     if (Empty()) // если стек пуст, возвращаем исключение
     {
         throw EStackEmpty();
     }
+    T data=head->key;
     //исключаем и удаляем текущую голову
     Node* p = head;
     head = head->next;
     delete p;
 
     size--; // уменьшаем размер стека
+    return data;
 }
 
 

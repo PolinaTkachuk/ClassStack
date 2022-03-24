@@ -14,7 +14,7 @@ private:
     class Node
         {
         public:
-            T key = 0;// ключ
+            T key;// ключ
             Node* head = nullptr;// указатель на голову
             Node* next = nullptr;//указатель на след эл
             Node() { head = nullptr; } //конструктор по умолчанию

@@ -34,9 +34,16 @@ int main()
 
   // тестирование часть№2 лаба№1
     PersonKeeper& keeper = PersonKeeper::Instance();
-    string s = "D:\\lab\\ClassStack\\file.txt";
-    keeper.ReadPersons(s);
+    string s = "D:\\lab\\file.txt";
 
+    Stack <Person> P= keeper.ReadPersons(s);
+
+    //проверяем
+    Person Checkk = P.Pop();
+
+    cout << Checkk.getLastName() << Checkk.getFirstName() << Checkk.getPatronymic()<<endl;
+   //записываем
+    keeper.WritePersons(P);
 
 
 }

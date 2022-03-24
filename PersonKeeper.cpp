@@ -4,6 +4,7 @@
 #include<string>
 using namespace std;
 
+//возвращ ссылку на объект instance
 PersonKeeper &PersonKeeper::Instance()
 {
     // создаем единственный объект, поэтому указывает static и возвращаем его
@@ -12,27 +13,31 @@ PersonKeeper &PersonKeeper::Instance()
 }
 
 Stack <Person> PersonKeeper::ReadPersons(string way)
-// Считывает из файла в стек возвращает стек, создает объекты класса Person и помещает их в стек
+// Считывает из файла в стек, возвращает стек, создает объекты класса Person и помещает их в стек
 {
-    // передан пусть до объекта класса ifstream , до файла
+    // передан путь до объекта класса ifstream , до файла
     ifstream file(way);
-    file.open(way, ios::in);// открываем файл на чтение
-    //file.open("D:\\lab\\ClassStack\\file.txt",ios::in);
+    // открываем файл на чтение
+    file.open(way, ios::in);
 
     //проверка на удачное открытие файла
-    if (file.is_open())
+    if (!file)
     {
          string s;// строка для хранения текущей строки
-         Stack<Person> stack;
-         while (getline(file, s) && !file.eof())
+         Stack<Person> stack;// создали объект
+         while ( !file.eof())//пока не конец файла
                 {
-                    //std::cout << s << std::endl;
+                    getline(file, s); // из файла считалась строка s
+                     // file >> s ;
                     //помещаем в стек объект класса человек ( с помощью конструктора из строки формируем объект)
                     stack.Push(Person(s));
                 }
+         //возвращаем стек
          return stack;
     }
+    //если файл не удалось открыть- сообщаем
     else{ throw "Error: the file did not open";}
+    //закрытие файла
     file.close();
 }
 
@@ -40,17 +45,19 @@ Stack <Person> PersonKeeper::ReadPersons(string way)
 void PersonKeeper::WritePersons(Stack <Person> s) const
 {
     ofstream file; // создаем объект
-    file.open("D:\\lab\\ClassStack\\file.txt",ios::out); // открываем файл на запись
+    file.open("D:\\lab\\file.txt",ios::out); // открываем файл на запись
 
     Stack <Person> S1(s); //создаю копию передаваемого стека
-    Person P= S1.Pop(); // вызвала Pop от копии-> получила текущего person
-    file << P.getLastName()<<" "<< P.getFirstName()<<" "<<P.getPatronymic()<<endl ;// Объединила в одну строку и в файл
+    Person P= S1.Pop(); //вызвала Pop от копии-> получила текущего person, ведь стек не должен поменяться!(поэтому использ копию)
+    // Объединила в одну строку и в файл записала
+    file << P.getLastName()<<" "<< P.getFirstName()<<" "<<P.getPatronymic()<<endl ;
 
     file.close(); // закрываем файл
 }
 
 int PersonKeeper::Size(Stack <Person> s)
 {
+    //возвращаем размер переденного стека с типом person
     return s.Size();
 }
 

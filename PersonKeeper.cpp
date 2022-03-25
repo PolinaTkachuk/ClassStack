@@ -12,33 +12,36 @@ PersonKeeper &PersonKeeper::Instance()
     return instance;
 }
 
-Stack <Person> PersonKeeper::ReadPersons(string way)
+Stack <Person> PersonKeeper::ReadPersons(ifstream& in)
 // Считывает из файла в стек, возвращает стек, создает объекты класса Person и помещает их в стек
 {
-    // передан путь до объекта класса ifstream , до файла
-    ifstream file(way);
-    // открываем файл на чтение
-    file.open(way, ios::in);
-
+   //передан файл на чтение
+     //если файл не удалось открыть- сообщаем
+   if(!in) { throw "Error: the file did not open"; }
     //проверка на удачное открытие файла
-    if (!file)
+    else
     {
-         string s;// строка для хранения текущей строки
-         Stack<Person> stack;// создали объект
-         while ( !file.eof())//пока не конец файла
-                {
-                    getline(file, s); // из файла считалась строка s
-                     // file >> s ;
-                    //помещаем в стек объект класса человек ( с помощью конструктора из строки формируем объект)
-                    stack.Push(Person(s));
-                }
+      string s;// строка для хранения текущей строки
+      Stack<Person> stack;// создали объект
+      while ( !in.eof())//пока не конец файла
+      {
+          if( in >> s)// из файла считалась строка s
+             {
+                //getline(in, s); // из файла считалась строка s
+               //помещаем в стек объект класса человек ( с помощью конструктора из строки формируем объект)
+               stack.Push(Person(s));
+               cout << s <<"\n";//вывод на консоль строк
+             }
+
+        }
          //возвращаем стек
          return stack;
+         //закрытие файла
+          in.close();
     }
-    //если файл не удалось открыть- сообщаем
-    else{ throw "Error: the file did not open";}
-    //закрытие файла
-    file.close();
+
+
+
 }
 
 //записывает в файл из стека

@@ -1,5 +1,6 @@
 #include"PersonKeeper.h"
 #include <iostream>
+#include<fstream>
 using namespace std;
 
 
@@ -33,17 +34,25 @@ int main()
         cout << endl << "размер удаленного стека S1=" << S1.Size() << endl;
 
   // тестирование часть№2 лаба№1
+    ifstream in("file.txt");
+    if(!in) cout<<"error";
     PersonKeeper& keeper = PersonKeeper::Instance();
     string s = "D:\\lab\\file.txt";
+    Stack <Person> P;
+        try {
 
-    Stack <Person> P= keeper.ReadPersons(s);
+           P= keeper.ReadPersons(in);cout<<"pp";
+        }
+        catch (...) {
+            cout <<"Error: the file did not open" << endl;
 
-    //проверяем
-    Person Checkk = P.Pop();
+        }
+    Stack <Person> Check(P); //создаю копию передаваемого стека
 
-    cout << Checkk.getLastName() << Checkk.getFirstName() << Checkk.getPatronymic()<<endl;
+    Check.Pop();
+
    //записываем
-    keeper.WritePersons(P);
+   // keeper.WritePersons(P);
 
 
 }

@@ -6,6 +6,7 @@ using namespace std;
 
 int main()
 {
+
       // тестирование часть№1 лаба№1
         Stack <int> S; //создание пустого стека
         try
@@ -34,26 +35,35 @@ int main()
         cout << endl << "размер удаленного стека S1=" << S1.Size() << endl;
 
   // тестирование часть№2 лаба№1
-    ifstream in("file.txt");
-    if(!in) cout<<"error";
-    PersonKeeper& keeper = PersonKeeper::Instance();
+    ifstream in("file.txt");// Открыли файл на чтение
+    if(!in) cout<<"error"; //проверка открытия
+    PersonKeeper& keeper = PersonKeeper::Instance(); //создали единственный объект класса одиночки
     string s = "D:\\lab\\file.txt";
-    Stack <Person> P;
-        try {
+    Stack <Person> P;//создали объект типа человек
+        try { //обработка исключения
 
-           P= keeper.ReadPersons(in);cout<<"pp";
+           P= keeper.ReadPersons(in);// вызвали функцию чтения из файла
         }
         catch (...) {
-            cout <<"Error: the file did not open" << endl;
+            cout <<"Error: the file did not open" << endl; //сообщение об ошибке
 
         }
-    Stack <Person> Check(P); //создаю копию передаваемого стека
 
-    Check.Pop();
+   PersonKeeper::Instance().WritePersons(P);//вызвана функция записи
 
-   //записываем
-   // keeper.WritePersons(P);
-
-
+    //для инструкции пользователя часть1
+    /*
+        Stack <int> S1; //создание стека
+        cout << "Использование Push для разных типов" << endl;
+        for (int i = 5; i > 0; i--) //заполнение его 5ю значениями int
+            S1.Push(i); //проверка работы функции добавления
+        cout << "S1:";
+        S1.print(); //вывод на консоль
+        cout << "\n";
+        Stack<string> s; //создание стека типа string
+        s.Push("a"); //добавление строки а
+        cout << "s:";
+        s.print(); //вывод
+        */
 }
 

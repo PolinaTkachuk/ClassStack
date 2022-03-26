@@ -7,7 +7,9 @@ class EStackEmpty : public EStackException
 {
 public:
     //по умолчанию, сообщение- стек пуст
-    EStackEmpty(): EStackException("Stack is empty!!") { }
+     EStackEmpty() : EStackException("Stack is empty!!") { }
+    // конструктор копирования
+     EStackEmpty(const EStackEmpty& arg) : EStackException(arg) { }
 };
 
 

@@ -71,3 +71,13 @@ Thumbs.db
 *.dll
 *.exe
 
+
+.vs/ProjectSettings.json
+
+.vs/ClassStack/v16/ipch/AutoPCH/ea14f210b80cad3/MAIN.ipch
+
+.vs/slnx.sqlite
+
+.vs/ClassStack/v16/Browse.VC.db
+
+.vs/VSWorkspaceState.json

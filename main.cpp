@@ -1,44 +1,69 @@
 #include"PersonKeeper.h"
 #include <iostream>
+#include<fstream>
 using namespace std;
 
 
 int main()
 {
-    PersonKeeper& keeper = PersonKeeper::Instance();
-    string s = "D:\\lab\\ClassStack\\file.txt";
-    keeper.ReadPersons(s);
 
-    Stack <int> S1;
-    Stack <int> S2(5);
+      // тестирование часть№1 лаба№1
+        Stack <int> S; //создание пустого стека
+        try
+        {
+           S.Pop();//проверка работы исключения при пустом стека
+         }
+        catch (const EStackException& e )//ловим исключение из throw в функции Pop
+        {
+            cout << e.what()<<endl; //вывод сообщения
+        }
 
-    if (S1.Empty()) cout << "S1 is Empty"<<endl;
-    else cout << "S1 is not empty";
+        Stack <int> S1; //создание стека
+        cout << "Использование Push" << endl;
+        for(int i=5;i>0;i--) //заполнение его 5ю значениями int
+        S1.Push(i); //проверка работы функции добавления
+        S1.print(); //вывод на консоль
 
-    if(S2.Empty()) cout<<"S2 is Empty";
-    else cout<<"S2 is not empty"<<endl;
+        cout << endl<<"Удаляем 1элемент, использование Pop" << endl;
+        S1.Pop();
+        S1.print();//вывод на консоль
 
-    //исключение при пустом стеке
-    //S1.Pop();
+        cout<<endl<<"размер стека S1="<<S1.Size()<<endl;
+        S1.Clear();
+        cout << "cтек S1 удален";
+        S1.print();
+        cout << endl << "размер удаленного стека S1=" << S1.Size() << endl;
 
-       cout << "enter 6 integer numbers: " << endl; // вводим 6 чисел
-       for (int i = 0; i != 6;i++) {
-        int a;
-        cin >> a;
+  // тестирование часть№2 лаба№1
+    ifstream in("file.txt");// Открыли файл на чтение
+    if(!in) cout<<"error"; //проверка открытия
+    PersonKeeper& keeper = PersonKeeper::Instance(); //создали единственный объект класса одиночки
+    string s = "D:\\lab\\file.txt";
+    Stack <Person> P;//создали объект типа человек
+        try { //обработка исключения
 
-        S1.Push(a);  // добавляем введенные числа
-      }
-       S1.print();
+           P= keeper.ReadPersons(in);// вызвали функцию чтения из файла
+        }
+        catch (...) {
+            cout <<"Error: the file did not open" << endl; //сообщение об ошибке
 
-       cout << endl<<"S2:" << endl;
-       S2.print();
-       cout << endl<<"delete element from S2 " << endl;
-       S2.Pop();
-       S2.print();
-       cout <<endl<< "Size S2=";
-       cout<<S2.Size()<<endl;
+        }
 
-       cout << endl<<"Size S1=";
-       cout << S1.Size()<<endl;
+   PersonKeeper::Instance().WritePersons(P);//вызвана функция записи
 
+    //для инструкции пользователя часть1
+    /*
+        Stack <int> S1; //создание стека
+        cout << "Использование Push для разных типов" << endl;
+        for (int i = 5; i > 0; i--) //заполнение его 5ю значениями int
+            S1.Push(i); //проверка работы функции добавления
+        cout << "S1:";
+        S1.print(); //вывод на консоль
+        cout << "\n";
+        Stack<string> s; //создание стека типа string
+        s.Push("a"); //добавление строки а
+        cout << "s:";
+        s.print(); //вывод
+        */
 }
+

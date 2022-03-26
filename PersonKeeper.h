@@ -16,7 +16,7 @@ private:
 
 public:
     static PersonKeeper &Instance();// статическая функция обязательно
-    Stack <Person> ReadPersons(string way);// Считывает из файла в стек, возвращает стек, создает объекты класса Person и помещает их в стек
+    Stack <Person> ReadPersons(ifstream&);// Считывает из файла в стек, возвращает стек, создает объекты класса Person и помещает их в стек
     void WritePersons(Stack <Person> s) const;//записывает в поток из стека,стек не меняется (стек передается аргументом)
     int Size(Stack <Person> s); // количество persons в заданом стеке
 
